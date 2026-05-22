@@ -44,6 +44,11 @@ public class Player extends KarasunoMember {
         System.out.println("10. 시미즈 키요코 - 매니저");
     }
 
+    @Override
+    public void showDetail() {
+        showPlayerDetail();
+    }
+
     public void showPlayerDetail() {
         showMemberInfo();
         System.out.println("등번호: " + uniformNumber);

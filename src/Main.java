@@ -1,3 +1,5 @@
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -5,16 +7,7 @@ public class Main {
     public static void showMemberDetail(
             Scanner scanner,
             ConsolePrinter consolePrinter,
-            Player hinata,
-            Player kageyama,
-            Player tsukishima,
-            Player nishinoya,
-            Player tanaka,
-            Player sawamura,
-            Player asahi,
-            Player sugawara,
-            Manager yachi,
-            Manager kiyoko
+            Map<Integer, KarasunoMember> members
     ) {
         consolePrinter.printBlank();
         consolePrinter.printMemberDetailInputMessage();
@@ -23,42 +16,21 @@ public class Main {
 
         consolePrinter.printBlank();
 
-        if (memberNumber == 1) {
-            sawamura.showPlayerDetail();
-        } else if (memberNumber == 2) {
-            sugawara.showPlayerDetail();
-        } else if (memberNumber == 3) {
-            nishinoya.showPlayerDetail();
-        } else if (memberNumber == 4) {
-            tanaka.showPlayerDetail();
-        } else if (memberNumber == 5) {
-            asahi.showPlayerDetail();
-        } else if (memberNumber == 6) {
-            kageyama.showPlayerDetail();
-        } else if (memberNumber == 7) {
-            hinata.showPlayerDetail();
-        } else if (memberNumber == 8) {
-            tsukishima.showPlayerDetail();
-        } else if (memberNumber == 9) {
-            yachi.showManagerInfo();
-        } else if (memberNumber == 10) {
-            kiyoko.showManagerInfo();
-        } else {
+        KarasunoMember member = members.get(memberNumber);
+
+        if (member == null) {
             consolePrinter.printInvalidMemberNumber();
+            return;
         }
+
+        member.showDetail();
     }
 
     public static void trainPlayer(
             Scanner scanner,
             ConsolePrinter consolePrinter,
-            Player hinata,
-            Player kageyama,
-            Player tsukishima,
-            Player nishinoya,
-            Player tanaka,
-            Player sawamura,
-            Player asahi,
-            Player sugawara
+            Map<Integer, Player> players,
+            Map<Integer, KarasunoMember> members
     ) {
         consolePrinter.printTrainInputMessage();
 
@@ -66,27 +38,19 @@ public class Main {
 
         consolePrinter.printBlank();
 
-        if (playerNumber == 1) {
-            sawamura.train();
-        } else if (playerNumber == 2) {
-            sugawara.train();
-        } else if (playerNumber == 3) {
-            nishinoya.train();
-        } else if (playerNumber == 4) {
-            tanaka.train();
-        } else if (playerNumber == 5) {
-            asahi.train();
-        } else if (playerNumber == 6) {
-            kageyama.train();
-        } else if (playerNumber == 7) {
-            hinata.train();
-        } else if (playerNumber == 8) {
-            tsukishima.train();
-        } else if (playerNumber == 9 || playerNumber == 10) {
-            consolePrinter.printManagerCannotTrain();
-        } else {
-            consolePrinter.printInvalidPlayerNumber();
+        Player player = players.get(playerNumber);
+
+        if (player != null) {
+            player.train();
+            return;
         }
+
+        if (members.containsKey(playerNumber)) {
+            consolePrinter.printManagerCannotTrain();
+            return;
+        }
+
+        consolePrinter.printInvalidPlayerNumber();
     }
 
     public static void main(String[] args) {
@@ -120,6 +84,28 @@ public class Main {
         Manager yachi = new Manager("야치 히토카", "1학년", "전략 분석 및 기록 정리");
         Manager kiyoko = new Manager("시미즈 키요코", "3학년", "팀 운영 및 선수 관리");
 
+        Map<Integer, KarasunoMember> members = new LinkedHashMap<>();
+        members.put(1, sawamura);
+        members.put(2, sugawara);
+        members.put(3, nishinoya);
+        members.put(4, tanaka);
+        members.put(5, asahi);
+        members.put(6, kageyama);
+        members.put(7, hinata);
+        members.put(8, tsukishima);
+        members.put(9, yachi);
+        members.put(10, kiyoko);
+
+        Map<Integer, Player> players = new LinkedHashMap<>();
+        players.put(1, sawamura);
+        players.put(2, sugawara);
+        players.put(3, nishinoya);
+        players.put(4, tanaka);
+        players.put(5, asahi);
+        players.put(6, kageyama);
+        players.put(7, hinata);
+        players.put(8, tsukishima);
+
         while (true) {
             consolePrinter.printMainMenu();
 
@@ -128,45 +114,11 @@ public class Main {
             if (number == 1) {
                 Player.showPlayerList();
             } else if (number == 2) {
-                showMemberDetail(
-                        scanner,
-                        consolePrinter,
-                        hinata,
-                        kageyama,
-                        tsukishima,
-                        nishinoya,
-                        tanaka,
-                        sawamura,
-                        asahi,
-                        sugawara,
-                        yachi,
-                        kiyoko
-                );
+                showMemberDetail(scanner, consolePrinter, members);
             } else if (number == 3) {
-                trainPlayer(
-                        scanner,
-                        consolePrinter,
-                        hinata,
-                        kageyama,
-                        tsukishima,
-                        nishinoya,
-                        tanaka,
-                        sawamura,
-                        asahi,
-                        sugawara
-                );
+                trainPlayer(scanner, consolePrinter, players, members);
             } else if (number == 4) {
-                MatchSimulation.startMatch(
-                        hinata,
-                        kageyama,
-                        tsukishima,
-                        nishinoya,
-                        tanaka,
-                        sawamura,
-                        asahi,
-                        sugawara,
-                        scanner
-                );
+                MatchSimulation.startMatch(scanner, players);
             } else if (number == 5) {
                 consolePrinter.printExitMessage();
                 break;
