@@ -9,12 +9,12 @@ public class Main {
             ConsolePrinter consolePrinter,
             Map<Integer, KarasunoMember> members
     ) {
-        consolePrinter.printBlank();
+        System.out.println();
         consolePrinter.printMemberDetailInputMessage();
 
         int memberNumber = scanner.nextInt();
 
-        consolePrinter.printBlank();
+        System.out.println();
 
         KarasunoMember member = members.get(memberNumber);
 
@@ -36,7 +36,7 @@ public class Main {
 
         int playerNumber = scanner.nextInt();
 
-        consolePrinter.printBlank();
+        System.out.println();
 
         Player player = players.get(playerNumber);
 
@@ -126,8 +126,8 @@ public class Main {
                 consolePrinter.printInvalidMenuNumber();
             }
 
-            consolePrinter.printBlank();
-            consolePrinter.printBlank();
+            System.out.println();
+            System.out.println();
         }
 
         scanner.close();
