@@ -5,11 +5,11 @@ public class ConsolePrinter {
         System.out.println("          『 WELCOME TO KARASUNO HIGHSCHOOL in Haikyuu LEVEL UP SIMULATION 』          ");
         System.out.println("====================================================================================");
         System.out.println();
-        System.out.println("1. 카라스노 고교 소속 멤버 목록 보기");
-        System.out.println("2. 카라스노 고교 소속 멤버 상세 정보 보기");
-        System.out.println("3. 선수 훈련 시키기");
-        System.out.println("4. 경기 참가하기");
-        System.out.println("5. 종료");
+        System.out.println(MenuNumber.SHOW_MEMBER_LIST + ". 카라스노 고교 소속 멤버 목록 보기");
+        System.out.println(MenuNumber.SHOW_MEMBER_DETAIL + ". 카라스노 고교 소속 멤버 상세 정보 보기");
+        System.out.println(MenuNumber.TRAIN_PLAYER + ". 선수 훈련 시키기");
+        System.out.println(MenuNumber.START_MATCH + ". 경기 참가하기");
+        System.out.println(MenuNumber.EXIT + ". 종료");
         System.out.println();
         System.out.print("번호를 입력하여 ｢ 카라스노 고교 선수 육성 ｣ 에 함께 하세요-!! >> ");
     }
@@ -42,7 +42,4 @@ public class ConsolePrinter {
         System.out.println("카라스노 고교 육성을 종료합니다...");
     }
 
-    public void printBlank() {
-        System.out.println();
-    }
 }

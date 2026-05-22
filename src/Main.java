@@ -1,6 +1,6 @@
+import java.util.Scanner;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 public class Main {
 
@@ -85,41 +85,41 @@ public class Main {
         Manager kiyoko = new Manager("시미즈 키요코", "3학년", "팀 운영 및 선수 관리");
 
         Map<Integer, KarasunoMember> members = new LinkedHashMap<>();
-        members.put(1, sawamura);
-        members.put(2, sugawara);
-        members.put(3, nishinoya);
-        members.put(4, tanaka);
-        members.put(5, asahi);
-        members.put(6, kageyama);
-        members.put(7, hinata);
-        members.put(8, tsukishima);
-        members.put(9, yachi);
-        members.put(10, kiyoko);
+        members.put(MemberNumber.SAWAMURA, sawamura);
+        members.put(MemberNumber.SUGAWARA, sugawara);
+        members.put(MemberNumber.NISHINOYA, nishinoya);
+        members.put(MemberNumber.TANAKA, tanaka);
+        members.put(MemberNumber.ASAHI, asahi);
+        members.put(MemberNumber.KAGEYAMA, kageyama);
+        members.put(MemberNumber.HINATA, hinata);
+        members.put(MemberNumber.TSUKISHIMA, tsukishima);
+        members.put(MemberNumber.YACHI, yachi);
+        members.put(MemberNumber.KIYOKO, kiyoko);
 
         Map<Integer, Player> players = new LinkedHashMap<>();
-        players.put(1, sawamura);
-        players.put(2, sugawara);
-        players.put(3, nishinoya);
-        players.put(4, tanaka);
-        players.put(5, asahi);
-        players.put(6, kageyama);
-        players.put(7, hinata);
-        players.put(8, tsukishima);
+        players.put(MemberNumber.SAWAMURA, sawamura);
+        players.put(MemberNumber.SUGAWARA, sugawara);
+        players.put(MemberNumber.NISHINOYA, nishinoya);
+        players.put(MemberNumber.TANAKA, tanaka);
+        players.put(MemberNumber.ASAHI, asahi);
+        players.put(MemberNumber.KAGEYAMA, kageyama);
+        players.put(MemberNumber.HINATA, hinata);
+        players.put(MemberNumber.TSUKISHIMA, tsukishima);
 
         while (true) {
             consolePrinter.printMainMenu();
 
             int number = scanner.nextInt();
 
-            if (number == 1) {
+            if (number == MenuNumber.SHOW_MEMBER_LIST) {
                 Player.showPlayerList();
-            } else if (number == 2) {
+            } else if (number == MenuNumber.SHOW_MEMBER_DETAIL) {
                 showMemberDetail(scanner, consolePrinter, members);
-            } else if (number == 3) {
+            } else if (number == MenuNumber.TRAIN_PLAYER) {
                 trainPlayer(scanner, consolePrinter, players, members);
-            } else if (number == 4) {
-                MatchSimulation.startMatch(scanner, players);
-            } else if (number == 5) {
+            } else if (number == MenuNumber.START_MATCH) {
+                MatchSimulation.startMatch(players, scanner);
+            } else if (number == MenuNumber.EXIT) {
                 consolePrinter.printExitMessage();
                 break;
             } else {
