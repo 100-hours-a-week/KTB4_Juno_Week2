@@ -2,22 +2,9 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void printNumber() {
-        System.out.println("====================================================================================");
-        System.out.println("          『 WELCOME TO KARASUNO HIGHSCHOOL in Haikyuu LEVEL UP SIMULATION 』          ");
-        System.out.println("====================================================================================");
-        System.out.println();
-        System.out.println("1. 카라스노 고교 소속 멤버 목록 보기");
-        System.out.println("2. 카라스노 고교 소속 멤버 상세 정보 보기");
-        System.out.println("3. 선수 훈련 시키기");
-        System.out.println("4. 경기 참가하기");
-        System.out.println("5. 종료");
-        System.out.println();
-        System.out.print("번호를 입력하여 ｢ 카라스노 고교 선수 육성 ｣ 에 함께 하세요-!! >> ");
-    }
-
     public static void showMemberDetail(
             Scanner scanner,
+            ConsolePrinter consolePrinter,
             Player hinata,
             Player kageyama,
             Player tsukishima,
@@ -29,11 +16,12 @@ public class Main {
             Manager yachi,
             Manager kiyoko
     ) {
-        System.out.println();
-        System.out.print("상세 조회하고 싶은 멤버 번호를 입력하세요 >> ");
+        consolePrinter.printBlank();
+        consolePrinter.printMemberDetailInputMessage();
+
         int memberNumber = scanner.nextInt();
 
-        System.out.println();
+        consolePrinter.printBlank();
 
         if (memberNumber == 1) {
             sawamura.showPlayerDetail();
@@ -56,12 +44,13 @@ public class Main {
         } else if (memberNumber == 10) {
             kiyoko.showManagerInfo();
         } else {
-            System.out.println("해당 번호의 멤버는 없습니다 (꒦ິ⍸꒦ິ)");
+            consolePrinter.printInvalidMemberNumber();
         }
     }
 
     public static void trainPlayer(
             Scanner scanner,
+            ConsolePrinter consolePrinter,
             Player hinata,
             Player kageyama,
             Player tsukishima,
@@ -71,10 +60,11 @@ public class Main {
             Player asahi,
             Player sugawara
     ) {
-        System.out.print("훈련시킬 선수 번호를 입력하세요 >> ");
+        consolePrinter.printTrainInputMessage();
+
         int playerNumber = scanner.nextInt();
 
-        System.out.println();
+        consolePrinter.printBlank();
 
         if (playerNumber == 1) {
             sawamura.train();
@@ -93,14 +83,15 @@ public class Main {
         } else if (playerNumber == 8) {
             tsukishima.train();
         } else if (playerNumber == 9 || playerNumber == 10) {
-            System.out.println("매니저는 훈련 대상이 아닙니다!");
+            consolePrinter.printManagerCannotTrain();
         } else {
-            System.out.println("해당 번호의 선수는 없습니다 (꒦ິ⍸꒦ິ)");
+            consolePrinter.printInvalidPlayerNumber();
         }
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        ConsolePrinter consolePrinter = new ConsolePrinter();
 
         Player sawamura = new Player("사와무라 다이치", "3학년", 1,
                 "윙 스파이커 / 캡틴", 85, 75, 90, "리더십", 95);
@@ -130,7 +121,7 @@ public class Main {
         Manager kiyoko = new Manager("시미즈 키요코", "3학년", "팀 운영 및 선수 관리");
 
         while (true) {
-            printNumber();
+            consolePrinter.printMainMenu();
 
             int number = scanner.nextInt();
 
@@ -139,6 +130,7 @@ public class Main {
             } else if (number == 2) {
                 showMemberDetail(
                         scanner,
+                        consolePrinter,
                         hinata,
                         kageyama,
                         tsukishima,
@@ -153,6 +145,7 @@ public class Main {
             } else if (number == 3) {
                 trainPlayer(
                         scanner,
+                        consolePrinter,
                         hinata,
                         kageyama,
                         tsukishima,
@@ -175,14 +168,14 @@ public class Main {
                         scanner
                 );
             } else if (number == 5) {
-                System.out.println("카라스노 고교 육성을 종료합니다...");
+                consolePrinter.printExitMessage();
                 break;
             } else {
-                System.out.println("잘못된 입력입니다 (꒦ິ⍸꒦ິ)");
+                consolePrinter.printInvalidMenuNumber();
             }
 
-            System.out.println();
-            System.out.println();
+            consolePrinter.printBlank();
+            consolePrinter.printBlank();
         }
 
         scanner.close();
