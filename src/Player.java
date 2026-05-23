@@ -3,13 +3,13 @@ public class Player extends KarasunoMember {
     private static final int TRAINING_DEFENSE_INCREASE = 6;
     private static final int TRAINING_STAMINA_DECREASE = 8;
 
-    int uniformNumber;
-    String position;
-    int stamina;
-    int attackPower;
-    int defensePower;
-    String specialAbilityName;
-    int specialAbilityPower;
+    private final int uniformNumber;
+    private final String position;
+    private int stamina;
+    private int attackPower;
+    private int defensePower;
+    private final String specialAbilityName;
+    private final int specialAbilityPower;
 
     Player(
             String name,
@@ -21,7 +21,7 @@ public class Player extends KarasunoMember {
             int defensePower,
             String specialAbilityName,
             int specialAbilityPower
-    ){
+    ) {
         super(name, grade, "선수");
         this.uniformNumber = uniformNumber;
         this.position = position;
@@ -30,8 +30,8 @@ public class Player extends KarasunoMember {
         this.defensePower = defensePower;
         this.specialAbilityName = specialAbilityName;
         this.specialAbilityPower = specialAbilityPower;
-
     }
+
     public static void showPlayerList() {
         System.out.println();
         System.out.println(">> 카라스노 고교 소속 멤버 목록을 불러옵니다.. <<");
@@ -63,18 +63,19 @@ public class Player extends KarasunoMember {
         System.out.println(specialAbilityName + ": " + specialAbilityPower);
     }
 
-    public int getPower(){
+    public int getPower() {
         return attackPower + defensePower + stamina;
     }
+
     public void train() {
         if (stamina < TRAINING_STAMINA_DECREASE) {
-            System.out.println(name + " 선수의 체력이 부족하여 훈련할 수 없습니다 (꒦ິ⍸꒦ິ)");
+            System.out.println(getName() + " 선수의 체력이 부족하여 훈련할 수 없습니다.");
             System.out.println("현재 체력: " + stamina);
-            System.out.println("훈련에는 최소 " + TRAINING_STAMINA_DECREASE + "의 체력이 필요합니다!");
+            System.out.println("훈련에는 최소 " + TRAINING_STAMINA_DECREASE + "의 체력이 필요합니다.");
             return;
         }
 
-        System.out.println(name + " 선수가 훈련을 시작합니다!");
+        System.out.println(getName() + " 선수가 훈련을 시작합니다!");
         System.out.println();
 
         attackPower += TRAINING_ATTACK_INCREASE;
@@ -87,9 +88,9 @@ public class Player extends KarasunoMember {
         System.out.println(".");
         System.out.println(".");
         System.out.println(".");
-        System.out.println(name + " 선수 훈련 완료 ✦‿✦");
+        System.out.println(getName() + " 선수 훈련 완료 ✦‿✦");
         System.out.println();
-        System.out.println(name + " 선수의 공격력은 " + attackPower
+        System.out.println(getName() + " 선수의 공격력은 " + attackPower
                 + ", 수비력은 " + defensePower
                 + ", 체력은 " + stamina + " 입니다!");
     }

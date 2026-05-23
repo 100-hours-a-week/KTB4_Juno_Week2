@@ -1,5 +1,5 @@
 public class Manager extends KarasunoMember {
-    String supportSkill;
+    private final String supportSkill;
 
     Manager(String name, String grade, String supportSkill) {
         super(name, grade, "매니저");

@@ -1,6 +1,6 @@
 public class KarasunoMember extends Person {
-    String school;
-    String role;
+    private final String school;
+    private final String role;
 
     KarasunoMember(String name, String grade, String role) {
         super(name, grade);
