@@ -1,4 +1,8 @@
 public class Player extends KarasunoMember {
+    private static final int TRAINING_ATTACK_INCREASE = 10;
+    private static final int TRAINING_DEFENSE_INCREASE = 6;
+    private static final int TRAINING_STAMINA_DECREASE = 8;
+
     int uniformNumber;
     String position;
     int stamina;
@@ -63,22 +67,30 @@ public class Player extends KarasunoMember {
         return attackPower + defensePower + stamina;
     }
     public void train() {
+        if (stamina < TRAINING_STAMINA_DECREASE) {
+            System.out.println(name + " 선수의 체력이 부족하여 훈련할 수 없습니다 (꒦ິ⍸꒦ິ)");
+            System.out.println("현재 체력: " + stamina);
+            System.out.println("훈련에는 최소 " + TRAINING_STAMINA_DECREASE + "의 체력이 필요합니다!");
+            return;
+        }
+
         System.out.println(name + " 선수가 훈련을 시작합니다!");
         System.out.println();
 
-        attackPower += 10;
-        defensePower += 6;
-        stamina -= 8;
+        attackPower += TRAINING_ATTACK_INCREASE;
+        defensePower += TRAINING_DEFENSE_INCREASE;
+        stamina -= TRAINING_STAMINA_DECREASE;
 
-        System.out.println("공격력 +10");
-        System.out.println("방어력 +6");
-        System.out.println("체력 -8");
+        System.out.println("공격력 +" + TRAINING_ATTACK_INCREASE);
+        System.out.println("방어력 +" + TRAINING_DEFENSE_INCREASE);
+        System.out.println("체력 -" + TRAINING_STAMINA_DECREASE);
         System.out.println(".");
         System.out.println(".");
         System.out.println(".");
-        System.out.println(name + " 선수" + "훈련 완료 ✦‿✦");
+        System.out.println(name + " 선수 훈련 완료 ✦‿✦");
         System.out.println();
-        System.out.println(name + " 선수의 공격력은 "+attackPower+", 수비력은 "+defensePower+", 체력은 "+stamina+" 입니다!");
-
+        System.out.println(name + " 선수의 공격력은 " + attackPower
+                + ", 수비력은 " + defensePower
+                + ", 체력은 " + stamina + " 입니다!");
     }
 }
