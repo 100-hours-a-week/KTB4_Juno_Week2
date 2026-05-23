@@ -53,6 +53,22 @@ public class Main {
         consolePrinter.printInvalidPlayerNumber();
     }
 
+    public static Map<Integer, Runnable> createMenuActions(
+            Scanner scanner,
+            ConsolePrinter consolePrinter,
+            Map<Integer, KarasunoMember> members,
+            Map<Integer, Player> players
+    ) {
+        Map<Integer, Runnable> menuActions = new LinkedHashMap<>();
+
+        menuActions.put(MenuNumber.SHOW_MEMBER_LIST, () -> Player.showPlayerList());
+        menuActions.put(MenuNumber.SHOW_MEMBER_DETAIL, () -> showMemberDetail(scanner, consolePrinter, members));
+        menuActions.put(MenuNumber.TRAIN_PLAYER, () -> trainPlayer(scanner, consolePrinter, players, members));
+        menuActions.put(MenuNumber.START_MATCH, () -> MatchSimulation.startMatch(players, scanner));
+
+        return menuActions;
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ConsolePrinter consolePrinter = new ConsolePrinter();
@@ -106,24 +122,29 @@ public class Main {
         players.put(MemberNumber.HINATA, hinata);
         players.put(MemberNumber.TSUKISHIMA, tsukishima);
 
+        Map<Integer, Runnable> menuActions = createMenuActions(
+                scanner,
+                consolePrinter,
+                members,
+                players
+        );
+
         while (true) {
             consolePrinter.printMainMenu();
 
             int number = scanner.nextInt();
 
-            if (number == MenuNumber.SHOW_MEMBER_LIST) {
-                Player.showPlayerList();
-            } else if (number == MenuNumber.SHOW_MEMBER_DETAIL) {
-                showMemberDetail(scanner, consolePrinter, members);
-            } else if (number == MenuNumber.TRAIN_PLAYER) {
-                trainPlayer(scanner, consolePrinter, players, members);
-            } else if (number == MenuNumber.START_MATCH) {
-                MatchSimulation.startMatch(players, scanner);
-            } else if (number == MenuNumber.EXIT) {
+            if (number == MenuNumber.EXIT) {
                 consolePrinter.printExitMessage();
                 break;
-            } else {
+            }
+
+            Runnable menuAction = menuActions.get(number);
+
+            if (menuAction == null) {
                 consolePrinter.printInvalidMenuNumber();
+            } else {
+                menuAction.run();
             }
 
             System.out.println();
