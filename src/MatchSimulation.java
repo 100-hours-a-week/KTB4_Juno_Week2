@@ -36,8 +36,18 @@ public class MatchSimulation {
         }
 
         System.out.println();
-        System.out.println("카라스노 고교 VS " + enemySchool.getName() + " 경기 시작-!!");
+        System.out.println("카라스노 고교 VS " + enemySchool.getName());
         System.out.println();
+
+        Thread countdownThread = new CountdownThread();
+        countdownThread.start();
+        try {
+            countdownThread.join();
+        } catch (InterruptedException e) {
+            System.out.println("경기 시작 대기 중 문제가 발생했습니다 (꒦ິ⍸꒦ິ)");
+            Thread.currentThread().interrupt();
+            return;
+        }
 
         int karasunoPower = calculateTeamPower(players);
 
