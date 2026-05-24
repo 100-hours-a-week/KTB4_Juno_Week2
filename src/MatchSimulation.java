@@ -50,6 +50,8 @@ public class MatchSimulation {
         }
         CheerBoard cheerBoard = new CheerBoard();
 
+        cheerBoard.showInitialCheerScore(enemySchool);
+
         Thread karasunoCheerThread = new KarasunoCheerThread(cheerBoard);
         Thread enemyCheerThread = new EnemyCheerThread(cheerBoard, enemySchool);
 
@@ -65,11 +67,11 @@ public class MatchSimulation {
             return;
         }
 
-        System.out.println();
+        cheerBoard.showFinalCheerScore(enemySchool);
 
         int karasunoPower = calculateTeamPower(players) + cheerBoard.getKarasunoCheerScore();
         int enemyPower = enemySchool.getPower() + cheerBoard.getEnemyCheerScore();
-System.out.println();
+
         System.out.println("카라스노 기본 전력 + 응원 보너스: " + karasunoPower);
         System.out.println(enemySchool.getName() + " 기본 전력 + 응원 보너스: " + enemyPower);
         System.out.println();
