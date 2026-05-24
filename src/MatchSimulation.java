@@ -48,16 +48,35 @@ public class MatchSimulation {
             Thread.currentThread().interrupt();
             return;
         }
+        CheerBoard cheerBoard = new CheerBoard();
 
-        int karasunoPower = calculateTeamPower(players);
+        Thread karasunoCheerThread = new KarasunoCheerThread(cheerBoard);
+        Thread enemyCheerThread = new EnemyCheerThread(cheerBoard, enemySchool);
 
-        System.out.println("카라스노 전력: " + karasunoPower);
-        System.out.println(enemySchool.getName() + " 전력: " + enemySchool.getPower());
+        karasunoCheerThread.start();
+        enemyCheerThread.start();
+
+        try {
+            karasunoCheerThread.join();
+            enemyCheerThread.join();
+        } catch (InterruptedException e) {
+            System.out.println("응원 진행 중 문제가 발생했습니다 (꒦ິ⍸꒦ິ)");
+            Thread.currentThread().interrupt();
+            return;
+        }
+
         System.out.println();
 
-        if (enemySchool.getPower() < karasunoPower) {
+        int karasunoPower = calculateTeamPower(players) + cheerBoard.getKarasunoCheerScore();
+        int enemyPower = enemySchool.getPower() + cheerBoard.getEnemyCheerScore();
+System.out.println();
+        System.out.println("카라스노 기본 전력 + 응원 보너스: " + karasunoPower);
+        System.out.println(enemySchool.getName() + " 기본 전력 + 응원 보너스: " + enemyPower);
+        System.out.println();
+
+        if (enemyPower < karasunoPower) {
             System.out.println("『카라스노 고교 승리』");
-        } else if (enemySchool.getPower() > karasunoPower) {
+        } else if (enemyPower > karasunoPower) {
             System.out.println("『카라스노 고교 패배 ...』");
             System.out.println("선수를 육성시켜 카라스노의 승리를 거머쥐세요!");
         } else {
