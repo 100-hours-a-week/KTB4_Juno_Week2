@@ -1,7 +1,7 @@
 public class KarasunoCheerThread extends Thread {
     private static final int CHEER_COUNT = 2;
     private static final int CHEER_SCORE = 10;
-    private static final int CHEER_DELAY_MILLISECONDS = 700;
+    private static final int CHEER_DELAY_TIME = 700;
 
     private final CheerBoard cheerBoard;
 
@@ -15,7 +15,7 @@ public class KarasunoCheerThread extends Thread {
             for (int count = 0; count < CHEER_COUNT; count++) {
                 System.out.println("카라스노 응원단: ｢ 이케이케 카라스노 오쎄오쎄 카라스노! ｣");
                 cheerBoard.addKarasunoCheerScore(CHEER_SCORE);
-                Thread.sleep(CHEER_DELAY_MILLISECONDS);
+                Thread.sleep(CHEER_DELAY_TIME);
             }
         } catch (InterruptedException e) {
             System.out.println("카라스노 응원이 중단되었습니다 (꒦ິ⍸꒦ິ)");
